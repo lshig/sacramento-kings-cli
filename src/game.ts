@@ -179,7 +179,7 @@ export default class Game {
   }
 
   getStatus(): string {
-    return _.get(this.competition, 'status.type.description', '');
+    return _.get(this.competition, 'status.type.detail', '');
   }
 
   isCompleted(): boolean {
