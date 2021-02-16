@@ -43,7 +43,9 @@ export default class Game {
     this.date = date;
     this.id = id;
     this.name = name;
-    this.hasScore = !!competition.boxscoreAvailable;
+    this.hasScore =
+      competition.boxscoreAvailable === undefined ||
+      competition.boxscoreAvailable === true;
   }
 
   formatDate(): string {
