@@ -12,12 +12,12 @@ import { validOpponentIds } from './data/opponentIds';
 const options = yargs.usage('Usage: sac [options]').options({
   data: {
     alias: 'd',
-    describe: 'Show raw JSON data',
+    describe: 'Show JSON data',
     type: 'boolean'
   },
   game: {
     alias: 'g',
-    describe: 'Show most recent game or next upcoming game',
+    describe: 'Show current, most recent, or upcoming game',
     type: 'boolean'
   },
   opponent: {
