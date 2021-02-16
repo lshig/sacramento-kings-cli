@@ -1,3 +1,3 @@
 # sacramento-kings-cli
 
-Command line for Sacramento Kings updates
+CLI for Sacramento Kings updates :basketball:

@@ -9,7 +9,7 @@ import Game from './game';
 import Team from './team';
 import { validOpponentIds } from './data/opponentIds';
 
-const options = yargs.usage('Usage: kings [options]').options({
+const options = yargs.usage('Usage: sac [options]').options({
   data: {
     alias: 'd',
     describe: 'Show raw JSON data',

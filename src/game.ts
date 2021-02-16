@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import emoji from 'node-emoji';
 import Message from './message';
 
 interface Competition {
@@ -88,7 +89,11 @@ export default class Game {
   }
 
   formatStatus(): string {
-    const statusMessage = new Message('#fff', 'underline', this.getStatus());
+    const emojiStatus =
+      this.getStatus() === 'Final'
+        ? this.getStatus() + ' ' + emoji.get('basketball')
+        : this.getStatus() + ' ' + emoji.get('hourglass_flowing_sand');
+    const statusMessage = new Message('#fff', 'bold', emojiStatus);
 
     return statusMessage.get();
   }
@@ -146,14 +151,15 @@ export default class Game {
     });
   }
 
-  getPrimaryColor(): string {
+  getLeadingCompetitor() {
     const competitors = this.getCompetitors();
-    const leadingCompetitor = _.maxBy(
-      competitors,
-      (competitor: { score: string }) => {
-        return parseInt(competitor.score);
-      }
-    );
+    return _.maxBy(competitors, (competitor: { score: string }) => {
+      return parseInt(competitor.score);
+    });
+  }
+
+  getPrimaryColor(): string {
+    const leadingCompetitor = this.getLeadingCompetitor();
 
     if (this.hasScore && leadingCompetitor) {
       return leadingCompetitor.primaryColor;
