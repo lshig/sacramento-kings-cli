@@ -2,12 +2,6 @@ import _ from 'lodash';
 import emoji from 'node-emoji';
 import Message from './message';
 
-interface Competition {
-  boxscoreAvailable: boolean;
-  competitors: Array<Competitor>;
-  status: object;
-}
-
 interface Competitor {
   homeAway: string;
   team: {
@@ -17,6 +11,12 @@ interface Competitor {
   };
   score: string;
   winner: boolean;
+}
+
+interface Competition {
+  boxscoreAvailable: boolean;
+  competitors: Array<Competitor>;
+  status: object;
 }
 
 interface FilteredCompetitor {
