@@ -9,21 +9,26 @@ interface Competitor {
     color: string;
     alternateColor: string;
   };
-  score: string;
-  winner: boolean;
+  score?: string;
+  winner?: boolean;
 }
 
 interface Competition {
-  boxscoreAvailable: boolean;
+  boxscoreAvailable?: boolean;
   competitors: Array<Competitor>;
-  status: object;
+  status: {
+    type: {
+      completed: boolean;
+      detail: string;
+    };
+  };
 }
 
 interface FilteredCompetitor {
   isHome: boolean;
   primaryColor: string;
   secondaryColor: string;
-  score: string;
+  score?: string;
   team: string;
 }
 
@@ -89,13 +94,17 @@ export default class Game {
   }
 
   formatStatus(): string {
-    const emojiStatus =
-      this.getStatus() === 'Final'
-        ? this.getStatus() + ' ' + emoji.get('basketball')
-        : this.getStatus() + ' ' + emoji.get('hourglass_flowing_sand');
-    const statusMessage = new Message('#fff', 'bold', emojiStatus);
+    if (this.hasScore) {
+      const emojiStatus =
+        this.getStatus() === 'Final'
+          ? this.getStatus() + ' ' + emoji.get('basketball')
+          : this.getStatus() + ' ' + emoji.get('hourglass_flowing_sand');
+      const statusMessage = new Message('#fff', 'bold', emojiStatus);
 
-    return statusMessage.get();
+      return statusMessage.get();
+    }
+
+    return 'No status available';
   }
 
   getCompetitors(): Array<FilteredCompetitor> {
@@ -153,9 +162,15 @@ export default class Game {
 
   getLeadingCompetitor() {
     const competitors = this.getCompetitors();
-    return _.maxBy(competitors, (competitor: { score: string }) => {
-      return parseInt(competitor.score);
-    });
+
+    if (this.hasScore && competitors.length === 2) {
+      return _.maxBy(competitors, (competitor: FilteredCompetitor) => {
+        if (!competitor.score) return;
+        return parseInt(competitor.score);
+      });
+    }
+
+    return null;
   }
 
   getPrimaryColor(): string {
@@ -169,13 +184,7 @@ export default class Game {
   }
 
   getSecondaryColor(): string {
-    const competitors = this.getCompetitors();
-    const leadingCompetitor = _.maxBy(
-      competitors,
-      (competitor: { score: string }) => {
-        return parseInt(competitor.score);
-      }
-    );
+    const leadingCompetitor = this.getLeadingCompetitor();
 
     if (this.hasScore && leadingCompetitor) {
       return leadingCompetitor.secondaryColor;

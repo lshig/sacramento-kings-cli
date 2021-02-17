@@ -1,15 +1,18 @@
 module.exports = {
   env: {
-    node: true
+    node: true,
+    jest: true
   },
   extends: [
     'eslint:recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:import/typescript'
+    'plugin:import/typescript',
+    'plugin:jest/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 2018, sourceType: 'module' },
+  plugins: ['jest'],
   rules: {
     eqeqeq: ['error', 'smart'],
     'no-confusing-arrow': ['error', { allowParens: false }],
