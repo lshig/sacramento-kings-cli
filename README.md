@@ -79,6 +79,7 @@ Options:
  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 Print team data:
+
 {"abbreviation":"SAC","displayName":"Sacramento Kings","hasNextEvent":true,"record":"72-0","standing":1}
 ```
 
@@ -96,6 +97,7 @@ Print team data:
  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 Last recent game:
+
  ┌──────────────────────────────────────────────┐
  │                                              │
  │    Los Angeles Lakers at Sacramento Kings    │
