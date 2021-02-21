@@ -11,17 +11,13 @@ describe('Game', () => {
           {
             homeAway: 'home',
             team: {
-              abbreviation: 'BAR',
-              color: 'f00000',
-              alternateColor: 'f00001'
+              abbreviation: 'BAR'
             }
           },
           {
             homeAway: 'away',
             team: {
-              abbreviation: 'FOO',
-              color: 'f00003',
-              alternateColor: 'f00004'
+              abbreviation: 'FOO'
             }
           }
         ],
@@ -40,7 +36,7 @@ describe('Game', () => {
     it('formatDate', () => {
       const result = testGame.formatDate();
 
-      expect(result).toEqual(chalk.hex('fff')('2/12/2021, 4:00:00 PM'));
+      expect(result).toEqual(chalk.hex('fff')('2/12/2021, 4:00:00 PM PT'));
     });
 
     it('formatJSONMessage', () => {
@@ -48,7 +44,7 @@ describe('Game', () => {
 
       expect(result).toEqual(
         chalk.hex('fff')(
-          '{"date":"2021-02-13T00:00Z","hasScore":false,"id":"12345","name":"Footown Bars at Barville Foos","competitors":[],"status":""}'
+          '{"date":"2021-02-13T00:00Z","hasScore":false,"id":"12345","name":"Footown Bars at Barville Foos","competitors":[{"isHome":true,"primaryColor":"000","secondaryColor":"fff","score":"0","team":"BAR"},{"isHome":false,"primaryColor":"000","secondaryColor":"fff","score":"0","team":"FOO"}],"status":""}'
         )
       );
     });
@@ -76,7 +72,22 @@ describe('Game', () => {
     it('getCompetitors', () => {
       const result = testGame.getCompetitors();
 
-      expect(result).toEqual([]);
+      expect(result).toEqual([
+        {
+          isHome: true,
+          primaryColor: '000',
+          score: '0',
+          secondaryColor: 'fff',
+          team: 'BAR'
+        },
+        {
+          isHome: false,
+          primaryColor: '000',
+          score: '0',
+          secondaryColor: 'fff',
+          team: 'FOO'
+        }
+      ]);
     });
 
     it('getFormattedMessage', () => {
@@ -85,7 +96,7 @@ describe('Game', () => {
       expect(result).toEqual(
         chalk.bold.hex('fff')('Footown Bars at Barville Foos') +
           '\n' +
-          chalk.hex('fff')('2/12/2021, 4:00:00 PM')
+          chalk.hex('fff')('2/12/2021, 4:00:00 PM PT')
       );
     });
 
@@ -105,7 +116,7 @@ describe('Game', () => {
       const result = testGame.getJSONMessage();
 
       expect(result).toEqual(
-        '{"date":"2021-02-13T00:00Z","hasScore":false,"id":"12345","name":"Footown Bars at Barville Foos","competitors":[],"status":""}'
+        '{"date":"2021-02-13T00:00Z","hasScore":false,"id":"12345","name":"Footown Bars at Barville Foos","competitors":[{"isHome":true,"primaryColor":"000","secondaryColor":"fff","score":"0","team":"BAR"},{"isHome":false,"primaryColor":"000","secondaryColor":"fff","score":"0","team":"FOO"}],"status":""}'
       );
     });
 
@@ -184,7 +195,7 @@ describe('Game', () => {
     it('formatDate', () => {
       const result = testGame.formatDate();
 
-      expect(result).toEqual(chalk.hex('fff')('2/13/2021, 4:00:00 PM'));
+      expect(result).toEqual(chalk.hex('fff')('2/13/2021, 4:00:00 PM PT'));
     });
 
     it('formatJSONMessage', () => {
@@ -248,7 +259,7 @@ describe('Game', () => {
       expect(result).toEqual(
         chalk.bold.hex('fff')('Footown Bars at Barville Foos') +
           '\n' +
-          chalk.hex('fff')('2/13/2021, 4:00:00 PM') +
+          chalk.hex('fff')('2/13/2021, 4:00:00 PM PT') +
           '\n\n' +
           chalk.bold.hex('fff')(
             '00:45 - Q4 ' + emoji.get('hourglass_flowing_sand')
@@ -359,7 +370,7 @@ describe('Game', () => {
     it('formatDate', () => {
       const result = testGame.formatDate();
 
-      expect(result).toEqual(chalk.hex('fff')('2/13/2021, 4:00:00 PM'));
+      expect(result).toEqual(chalk.hex('fff')('2/13/2021, 4:00:00 PM PT'));
     });
 
     it('formatJSONMessage', () => {
@@ -421,7 +432,7 @@ describe('Game', () => {
       expect(result).toEqual(
         chalk.bold.hex('fff')('Footown Bars at Barville Foos') +
           '\n' +
-          chalk.hex('fff')('2/13/2021, 4:00:00 PM') +
+          chalk.hex('fff')('2/13/2021, 4:00:00 PM PT') +
           '\n\n' +
           chalk.bold.hex('fff')('Final ' + emoji.get('basketball')) +
           '\n' +

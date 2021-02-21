@@ -2,7 +2,14 @@ import boxen from 'boxen';
 
 export default class Banner {
   message: string;
-  theme: object;
+  theme: {
+    align: 'center';
+    backgroundColor: string;
+    borderColor: string;
+    borderStyle: 'bold' | 'single';
+    margin: { bottom: number; left: number; right: number; top: number };
+    padding: number;
+  };
 
   constructor(
     message: string,
@@ -13,12 +20,12 @@ export default class Banner {
     this.message = message;
     this.theme = {
       align: 'center',
-      padding: 1,
-      margin: { top: isBold ? 1 : 0, left: 1, bottom: 1, right: 1 },
       backgroundColor: '#' + primaryColor,
       borderColor:
         primaryColor === secondaryColor ? '#aaa' : '#' + secondaryColor,
-      borderStyle: isBold ? 'bold' : 'single'
+      borderStyle: isBold ? 'bold' : 'single',
+      margin: { bottom: 1, left: 1, right: 1, top: isBold ? 1 : 0 },
+      padding: 1
     };
   }
 

@@ -2,7 +2,7 @@
 
 import yargs from 'yargs';
 import { loadTeam, loadGameScore } from './util/requests';
-import { validOpponentIds } from './data/opponentIds';
+import { validOpponentIds } from './util/opponentIds';
 
 const options = yargs.usage('Usage: sac [options]').options({
   data: {

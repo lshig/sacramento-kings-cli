@@ -1,36 +1,7 @@
 import _ from 'lodash';
 import emoji from 'node-emoji';
 import Message from './message';
-
-interface Competitor {
-  homeAway: string;
-  team: {
-    abbreviation: string;
-    color: string;
-    alternateColor: string;
-  };
-  score?: string;
-  winner?: boolean;
-}
-
-interface Competition {
-  boxscoreAvailable?: boolean;
-  competitors: Array<Competitor>;
-  status: {
-    type: {
-      completed: boolean;
-      detail: string;
-    };
-  };
-}
-
-interface FilteredCompetitor {
-  isHome: boolean;
-  primaryColor: string;
-  secondaryColor: string;
-  score?: string;
-  team: string;
-}
+import { Competition, FilteredCompetitor } from './util/types';
 
 export default class Game {
   competition: Competition;
@@ -58,7 +29,9 @@ export default class Game {
     const dateMessage = new Message(
       '#fff',
       null,
-      new Date(this.date).toLocaleString()
+      new Date(this.date).toLocaleString('en-US', {
+        timeZone: 'America/Los_Angeles'
+      }) + ' PT'
     );
 
     return dateMessage.get();

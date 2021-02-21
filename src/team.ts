@@ -1,23 +1,6 @@
 import _ from 'lodash';
 import Message from './message';
-
-interface Statistics {
-  name: string;
-  value: number;
-}
-
-interface Record {
-  summary: string;
-  stats: Array<Statistics>;
-  type: string;
-}
-
-interface NextEvent {
-  competitions: Array<object>;
-  date: string;
-  id: string;
-  name: string;
-}
+import { NextEvent, Record } from './util/types';
 
 export default class Team {
   abbreviation: string;
