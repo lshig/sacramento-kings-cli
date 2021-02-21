@@ -108,18 +108,18 @@ export default class Game {
   }
 
   getCompetitors(): Array<FilteredCompetitor> {
-    if (this.hasScore) {
-      const competitors = _.map(this.competition.competitors, (competitor) => {
+    const competitors = _.get(this.competition, 'competitors', []);
+
+    if (competitors.length === 2) {
+      return _.map(competitors, (competitor) => {
         return {
           isHome: competitor.homeAway === 'home',
-          primaryColor: competitor.team.color,
-          secondaryColor: competitor.team.alternateColor,
-          score: competitor.score,
+          primaryColor: _.get(competitor, 'team.color', '000'),
+          secondaryColor: _.get(competitor, 'team.alternateColor', 'fff'),
+          score: competitor.score || '0',
           team: competitor.team.abbreviation
         };
       });
-
-      return competitors;
     }
 
     return [];
