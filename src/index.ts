@@ -26,7 +26,7 @@ const options = yargs.usage('Usage: sac [options]').options({
 loadTeam('sac', false, true && !!options.game, !!options.data)
   .then((gameId?: string) => {
     if (gameId && options.game) {
-      return loadGameScore(gameId, !!options.game);
+      return loadGameScore(gameId, !!options.data);
     }
 
     return;
