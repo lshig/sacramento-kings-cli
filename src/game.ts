@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import emoji from 'node-emoji';
 import Message from './message';
-import { Competition, FilteredCompetitor } from './util/types';
+import { Competition, FilteredCompetitor } from './types';
 
 export default class Game {
   competition: Competition;

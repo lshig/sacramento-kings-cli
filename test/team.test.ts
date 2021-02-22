@@ -8,10 +8,36 @@ describe('Team', () => {
       'Footown Bars',
       [
         {
-          competitions: [{ boxscoreAvailable: false }],
           date: '2021-02-13T03:00Z',
           id: '12345',
-          name: 'Footown Bars at Barville Foos'
+          name: 'Footown Bars at Barville Foos',
+          competitions: [
+            {
+              boxscoreAvailable: false,
+              competitors: [
+                {
+                  homeAway: 'home',
+                  team: {
+                    abbreviation: 'BAR'
+                  }
+                },
+                {
+                  homeAway: 'away',
+                  team: {
+                    abbreviation: 'FOO'
+                  }
+                }
+              ],
+              date: '2021-02-13T03:00Z',
+              id: '12345',
+              status: {
+                type: {
+                  completed: false,
+                  detail: 'Coming soon'
+                }
+              }
+            }
+          ]
         }
       ],
       'f00001',

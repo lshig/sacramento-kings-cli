@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
-import { loadTeam, loadGameScore } from './util/requests';
+import { handleError, loadTeam, loadGameScore } from './util/requests';
 import { validOpponentIds } from './util/opponentIds';
 
 const options = yargs.usage('Usage: sac [options]').options({
@@ -31,6 +31,7 @@ loadTeam('sac', false, true && !!options.game, !!options.data)
 
     return;
   })
+  .catch((error) => handleError(error))
   .then(() => {
     if (options.opponent) {
       const opponentName = options.opponent;
@@ -38,4 +39,5 @@ loadTeam('sac', false, true && !!options.game, !!options.data)
     }
 
     return;
-  });
+  })
+  .catch((error) => handleError(error));

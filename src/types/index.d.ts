@@ -20,22 +20,24 @@ export interface Competitor {
   winner?: boolean;
 }
 
-export interface NextEvent {
-  competitions: Array<Competitor>;
-  date: string;
-  id: string;
-  name: string;
-}
-
 export interface Competition {
   boxscoreAvailable?: boolean;
   competitors: Array<Competitor>;
+  date: string;
+  id: string;
   status: {
     type: {
       completed: boolean;
       detail: string;
     };
   };
+}
+
+export interface NextEvent {
+  competitions: Array<Competition>;
+  date: string;
+  id: string;
+  name: string;
 }
 
 export interface FilteredCompetitor {

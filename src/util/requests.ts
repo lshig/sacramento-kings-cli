@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import ora from 'ora';
 import Banner from '../banner';
 import Game from '../game';
+import Message from '../message';
 import Team from '../team';
 
 export function loadTeam(
@@ -132,4 +133,33 @@ export function loadGameScore(
 
       return;
     });
+}
+
+export function handleError(error: AxiosError) {
+  if (error.response) {
+    const errorDataMessage = new Message('ff0000', null, error.response.data);
+    const errorStatusMessage = new Message(
+      'ff0000',
+      null,
+      error.response.status.toString()
+    );
+    const errorHeadersMessage = new Message(
+      'ff0000',
+      null,
+      error.response.headers
+    );
+
+    errorDataMessage.print();
+    errorStatusMessage.print();
+    errorHeadersMessage.print();
+  } else if (error.request) {
+    const errorRequestMessage = new Message('ff0000', null, error.request);
+
+    errorRequestMessage.print();
+    console.log(error.request);
+  } else {
+    const errorMessage = new Message('ff0000', null, 'Error:' + error.request);
+
+    errorMessage.print();
+  }
 }

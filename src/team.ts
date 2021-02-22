@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Message from './message';
-import { NextEvent, Record } from './util/types';
+import { NextEvent, Record } from './types';
 
 export default class Team {
   abbreviation: string;
