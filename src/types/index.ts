@@ -23,8 +23,8 @@ export interface Competitor {
 export interface Competition {
   boxscoreAvailable?: boolean;
   competitors: Array<Competitor>;
-  date: string;
-  id: string;
+  date?: string;
+  id?: string;
   status: {
     type: {
       completed: boolean;

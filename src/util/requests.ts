@@ -146,7 +146,7 @@ export function handleError(error: AxiosError) {
     const errorHeadersMessage = new Message(
       'ff0000',
       null,
-      error.response.headers
+      JSON.stringify(error.response.headers)
     );
 
     errorDataMessage.print();
