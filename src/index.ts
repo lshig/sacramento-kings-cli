@@ -4,24 +4,27 @@ import yargs from 'yargs';
 import { handleError, loadTeam, loadGameScore } from './util/requests';
 import { validOpponentIds } from './util/opponentIds';
 
-const options = yargs.usage('Usage: sac [options]').options({
-  data: {
-    alias: 'd',
-    describe: 'Show JSON data',
-    type: 'boolean'
-  },
-  game: {
-    alias: 'g',
-    describe: 'Show current, most recent, or upcoming game',
-    type: 'boolean'
-  },
-  opponent: {
-    alias: 'o',
-    choices: validOpponentIds,
-    describe: "Show opponent's standing and record",
-    type: 'string'
-  }
-}).argv;
+const options = yargs
+  .usage('Usage: sac [options]')
+  .options({
+    data: {
+      alias: 'd',
+      describe: 'Show JSON data',
+      type: 'boolean'
+    },
+    game: {
+      alias: 'g',
+      describe: 'Show current, most recent, or upcoming game',
+      type: 'boolean'
+    },
+    opponent: {
+      alias: 'o',
+      choices: validOpponentIds,
+      describe: "Show opponent's standing and record",
+      type: 'string'
+    }
+  })
+  .parseSync();
 
 loadTeam('sac', false, true && !!options.game, !!options.data)
   .then((gameId?: string) => {
