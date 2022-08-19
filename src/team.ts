@@ -17,7 +17,7 @@ export default class Team {
     nextEvent: Array<NextEvent>,
     primaryColor: string,
     secondaryColor: string,
-    record: Array<Record>
+    record?: Array<Record>
   ) {
     this.abbreviation = abbreviation;
     this.displayName = displayName;
@@ -28,8 +28,7 @@ export default class Team {
     const overallRecord = _.filter(record, (item) => {
       return item.type === 'total';
     });
-    this.record =
-      overallRecord.length === 1 ? overallRecord[0].summary : 'Missing record';
+    this.record = overallRecord.length === 1 ? overallRecord[0].summary : '';
 
     const statisitcs = overallRecord.length === 1 ? overallRecord[0].stats : [];
     const overallStatisitcs = _.filter(statisitcs, (statistic) => {
@@ -57,17 +56,21 @@ export default class Team {
   }
 
   formatRecord(): string {
-    const recordMessage = new Message('#fff', null, this.record + ' record');
+    let recordContext = this.record + ' record';
+
+    if (!this.record) recordContext = 'No record yet';
+
+    const recordMessage = new Message('#fff', null, recordContext);
 
     return recordMessage.get();
   }
 
   formatStanding(): string {
-    const standingMessage = new Message(
-      '#fff',
-      null,
-      '#' + this.standing + ' in conference'
-    );
+    let standingContext = '#' + this.standing + ' in conference';
+
+    if (!this.standing) standingContext = '** Preseason **';
+
+    const standingMessage = new Message('#fff', null, standingContext);
 
     return standingMessage.get();
   }

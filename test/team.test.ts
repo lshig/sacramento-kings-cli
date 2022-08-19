@@ -105,4 +105,93 @@ describe('Team', () => {
       expect(console.log).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('without record and standing', () => {
+    const testTeam = new Team(
+      'FOO',
+      'Footown Bars',
+      [
+        {
+          date: '2022-08-20T03:00Z',
+          id: '12345',
+          name: 'Footown Bars at Barville Foos',
+          competitions: [
+            {
+              boxscoreAvailable: false,
+              competitors: [
+                {
+                  homeAway: 'home',
+                  team: {
+                    abbreviation: 'BAR'
+                  }
+                },
+                {
+                  homeAway: 'away',
+                  team: {
+                    abbreviation: 'FOO'
+                  }
+                }
+              ],
+              date: '2022-08-20T03:00Z',
+              id: '12345',
+              status: {
+                type: {
+                  completed: false,
+                  detail: 'Coming soon'
+                }
+              }
+            }
+          ]
+        }
+      ],
+      'f00001',
+      'f00002',
+      undefined
+    );
+
+    it('formatName', () => {
+      const result = testTeam.formatName();
+      expect(result).toEqual(
+        chalk.bold.hex('fff')('Footown Bars') + ' ' + chalk.hex('fff')('(FOO)')
+      );
+    });
+
+    it('formatRecord', () => {
+      const result = testTeam.formatRecord();
+      expect(result).toEqual(chalk.hex('fff')('No record yet'));
+    });
+
+    it('formatStanding', () => {
+      const result = testTeam.formatStanding();
+      expect(result).toEqual(chalk.hex('fff')('** Preseason **'));
+    });
+
+    it('getPrimaryColor', () => {
+      const result = testTeam.getPrimaryColor();
+      expect(result).toEqual('f00001');
+    });
+
+    it('getSecondaryColor', () => {
+      const result = testTeam.getSecondaryColor();
+      expect(result).toEqual('f00002');
+    });
+
+    it('getHasNextEvent', () => {
+      const result = testTeam.getHasNextEvent();
+      expect(result).toEqual(true);
+    });
+
+    it('getJSONMessage', () => {
+      const result = testTeam.getJSONMessage();
+      expect(result).toEqual(
+        '{"abbreviation":"FOO","displayName":"Footown Bars","hasNextEvent":true,"record":"","standing":0}'
+      );
+    });
+
+    it('printJSONMessage', () => {
+      console.log = jest.fn();
+      testTeam.printJSONMessage();
+      expect(console.log).toHaveBeenCalledTimes(1);
+    });
+  });
 });
