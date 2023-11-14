@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import emoji from 'node-emoji';
+import { get } from 'node-emoji';
 import Game from '../src/game';
 
 describe('Game', () => {
@@ -226,9 +226,7 @@ describe('Game', () => {
       const result = testGame.formatStatus();
 
       expect(result).toEqual(
-        chalk.bold.hex('fff')(
-          '00:45 - Q4 ' + emoji.get('hourglass_flowing_sand')
-        )
+        chalk.bold.hex('fff')('00:45 - Q4 ' + get('hourglass_flowing_sand'))
       );
     });
 
@@ -261,9 +259,7 @@ describe('Game', () => {
           '\n' +
           chalk.hex('fff')('2/13/2021, 4:00:00 PM PT') +
           '\n\n' +
-          chalk.bold.hex('fff')(
-            '00:45 - Q4 ' + emoji.get('hourglass_flowing_sand')
-          ) +
+          chalk.bold.hex('fff')('00:45 - Q4 ' + get('hourglass_flowing_sand')) +
           '\n' +
           chalk.hex('fff')('\nBAR: 100\nFOO: 10')
       );
@@ -401,7 +397,7 @@ describe('Game', () => {
       const result = testGame.formatStatus();
 
       expect(result).toEqual(
-        chalk.bold.hex('fff')('Final ' + emoji.get('basketball'))
+        chalk.bold.hex('fff')('Final ' + get('basketball'))
       );
     });
 
@@ -434,7 +430,7 @@ describe('Game', () => {
           '\n' +
           chalk.hex('fff')('2/13/2021, 4:00:00 PM PT') +
           '\n\n' +
-          chalk.bold.hex('fff')('Final ' + emoji.get('basketball')) +
+          chalk.bold.hex('fff')('Final ' + get('basketball')) +
           '\n' +
           chalk.hex('fff')('\nBAR: 150\nFOO: 50')
       );

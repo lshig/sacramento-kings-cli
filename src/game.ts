@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import emoji from 'node-emoji';
+import { get } from 'node-emoji';
 import Message from './message';
 import { Competition, FilteredCompetitor } from './types';
 
@@ -70,8 +70,8 @@ export default class Game {
     if (this.hasScore) {
       const emojiStatus =
         this.getStatus() === 'Final'
-          ? this.getStatus() + ' ' + emoji.get('basketball')
-          : this.getStatus() + ' ' + emoji.get('hourglass_flowing_sand');
+          ? this.getStatus() + ' ' + get('basketball')
+          : this.getStatus() + ' ' + get('hourglass_flowing_sand');
       const statusMessage = new Message('#fff', 'bold', emojiStatus);
 
       return statusMessage.get();

@@ -137,7 +137,11 @@ export function loadGameScore(
 
 export function handleError(error: AxiosError) {
   if (error.response) {
-    const errorDataMessage = new Message('ff0000', null, error.response.data);
+    const errorDataMessage = new Message(
+      'ff0000',
+      null,
+      error.response.data as string
+    );
     const errorStatusMessage = new Message(
       'ff0000',
       null,
