@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
-import { handleError, loadTeam, loadGameScore } from './util/requests';
-import { validOpponentIds } from './util/opponentIds';
+import { getGameScore } from './util/get-game-score';
+import { getTeam } from './util/get-team';
+import { handleError } from './util/handle-error';
+import { opponents } from './util/opponents';
 
 const options = yargs
   .usage('Usage: sac [options]')
@@ -19,17 +21,17 @@ const options = yargs
     },
     opponent: {
       alias: 'o',
-      choices: validOpponentIds,
+      choices: opponents,
       describe: "Show opponent's standing and record",
       type: 'string'
     }
   })
   .parseSync();
 
-loadTeam('sac', false, true && !!options.game, !!options.data)
+getTeam('sac', false, true && !!options.game, !!options.data)
   .then((gameId?: string) => {
     if (gameId && options.game) {
-      return loadGameScore(gameId, !!options.data);
+      return getGameScore(gameId, !!options.data);
     }
 
     return;
@@ -38,7 +40,7 @@ loadTeam('sac', false, true && !!options.game, !!options.data)
   .then(() => {
     if (options.opponent) {
       const opponentName = options.opponent;
-      loadTeam(opponentName, true, false, !!options.data);
+      getTeam(opponentName, true, false, !!options.data);
     }
 
     return;

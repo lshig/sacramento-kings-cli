@@ -1,12 +1,10 @@
-import _ from 'lodash';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import ora from 'ora';
 import Banner from '../banner';
 import Game from '../game';
-import Message from '../message';
 import Team from '../team';
 
-export function loadTeam(
+export function getTeam(
   name: string,
   isOpponent: boolean,
   showNextGame: boolean,
@@ -88,82 +86,4 @@ export function loadTeam(
         }
       }
     });
-}
-
-export function loadGameScore(
-  gameId: string,
-  showData: boolean
-): Promise<void> {
-  const currentGamesUrl =
-    'http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
-
-  return axios
-    .get(currentGamesUrl, { headers: { Accept: 'application/json' } })
-    .then((res) => {
-      const scoreEvents = _.filter(res.data.events, (event) => {
-        return event.id === gameId;
-      });
-
-      if (scoreEvents.length === 1) {
-        const scoreGame = new Game(
-          scoreEvents[0].competitions[0],
-          scoreEvents[0].date,
-          scoreEvents[0].id,
-          scoreEvents[0].name
-        );
-
-        if (scoreGame.isCompleted()) {
-          console.log('Last recent game:\n');
-        } else {
-          console.log('Current game:\n');
-        }
-
-        const currentGameBanner = new Banner(
-          scoreGame.getFormattedMessage(),
-          scoreGame.getPrimaryColor(),
-          scoreGame.getSecondaryColor()
-        );
-        currentGameBanner.print();
-
-        if (showData) {
-          console.log('Print game data:\n');
-          scoreGame.printJSONMessage();
-        }
-      }
-
-      return;
-    });
-}
-
-export function handleError(error: AxiosError) {
-  if (error.response) {
-    const errorDataMessage = new Message(
-      'ff0000',
-      null,
-      error.response.data as string
-    );
-    const errorStatusMessage = new Message(
-      'ff0000',
-      null,
-      error.response.status.toString()
-    );
-    const errorHeadersMessage = new Message(
-      'ff0000',
-      null,
-      JSON.stringify(error.response.headers)
-    );
-
-    errorDataMessage.print();
-    errorStatusMessage.print();
-    errorHeadersMessage.print();
-  } else if (error.request) {
-    const errorRequestMessage = new Message('ff0000', null, error.request);
-
-    errorRequestMessage.print();
-    console.log(error.request);
-  } else {
-    const errorMessage = new Message('ff0000', null, 'Error:' + error.request);
-
-    errorMessage.print();
-  }
 }

@@ -1,4 +1,4 @@
-export const validOpponentIds = [
+export const opponents = [
   'atl',
   'bkn',
   'bos',
